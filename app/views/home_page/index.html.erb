@@ -1,20 +1,27 @@
 <% if current_user %>
   <h3>Bienvenido: <%= current_user.email %></h3>
   <% if current_user.user_plans.count > 0 %>
-    <h4> Ya tiene un plan activo </h4>
+    <h4>Ya tiene activo el plan: <%= current_user.user_plans.first.type_plan.name %></h4>
+    <p>Vencimiento: <%= current_user.user_plans.first.end_date %></p>
   <% else %>
-    <h4> Activar plan </h4>
-    <div class="well well-lg">
-      <h4>Plan gratuito</h4>
-      <div class="row">
-        <div class="col-lg-9">
-          <p>Si activa hoy su plan gratuito, tendrá validez hasta el día <%= (Date.current() + 60).to_formatted_s(:iso8601) %></p>
+    <h4>No tiene un plan activo</h4>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <% @plans.each do |plan| %>
+        <div class="well well-lg">
+          <h4>Plan <%= plan.name %></h4>
+          <div class="row">
+            <div class="col-md-9">
+              <p>Si activas hoy el Plan <%= plan.name %>, tendrá validez hasta el día <%= (Date.current() + 60).to_formatted_s(:iso8601) %></p>
+              <p>Precio: <%= number_to_currency(plan.price) %></p>
+            </div>
+            <div class="col-md-3">
+              <%= link_to "Activar", user_plans_path(type_plan_id: plan.id), method: :post, class: "btn btn-primary", data: { confirm: "¿Está seguro de activar este plan? "} %>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-3">
-          <%= link_to "Activar", "#", class: "btn btn-primary" %>
-        </div>
+        <% end %>
       </div>
-      
     </div>
   <% end %>
 <% else %>
