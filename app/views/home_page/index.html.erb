@@ -1,2 +1,48 @@
-<h1>HomePage#index</h1>
-<p>Find me in app/views/home_page/index.html.erb</p>
+<% if current_user %>
+  <h3>Bienvenido: <%= current_user.email %></h3>
+<% else %>
+  <div class="jumbotron">
+    <h2>Bienvenido a Clud-Business</h2>
+    <p class="lead">
+      Una nueva forma de administrar su negocio.
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="plans clearfix">
+      <div class="col-lg-3 col-lg-offset-3 plan">
+        <h2>Plan gratuito</h2>
+        <div class="price pull-right">
+          Precio: $0
+        </div>
+        <div class="features">
+          <ul>
+            <li>Acceso a todas las funciones</li>
+            <li>Movimientos y usuarios ilimitados</li>
+            <li>Período de prueba: 60 días</li>
+          </ul>
+        </div>
+        <p>
+          <%= link_to 'Elegir', new_user_registration_path, class: 'btn btn-primary sign-up' %>
+        </p>
+      </div>
+      <div class="col-lg-3 plan">
+        <h2>Plan Premium</h2>
+        <div class="price pull-right">
+          Precio: $750/mes
+        </div>
+        <div class="features">
+          <ul>
+            <li>Todas las funciones del plan gratuito</li>
+            <li>Soporte 24x7</li>
+            <li>Back-up diarios</li>
+            <li class='extra'>Prueba nuevas funciones antes</li>
+          </ul>
+        </div>
+        <p>
+          <%= link_to 'Elegir', new_user_registration_path, class: 'btn btn-primary sign-up' %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
