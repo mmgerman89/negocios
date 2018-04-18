@@ -1,5 +1,22 @@
 <% if current_user %>
   <h3>Bienvenido: <%= current_user.email %></h3>
+  <% if current_user.user_plans.count > 0 %>
+    <h4> Ya tiene un plan activo </h4>
+  <% else %>
+    <h4> Activar plan </h4>
+    <div class="well well-lg">
+      <h4>Plan gratuito</h4>
+      <div class="row">
+        <div class="col-lg-9">
+          <p>Si activa hoy su plan gratuito, tendrá validez hasta el día <%= (Date.current() + 60).to_formatted_s(:iso8601) %></p>
+        </div>
+        <div class="col-lg-3">
+          <%= link_to "Activar", "#", class: "btn btn-primary" %>
+        </div>
+      </div>
+      
+    </div>
+  <% end %>
 <% else %>
   <div class="jumbotron">
     <h2>Bienvenido a Clud-Business</h2>
