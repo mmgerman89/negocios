@@ -1,8 +1,8 @@
 <% if current_user %>
   <h3>Bienvenido: <%= current_user.email %></h3>
-  <% if current_user.user_plans.count > 0 %>
-    <h4>Ya tiene activo el plan: <%= current_user.user_plans.first.type_plan.name %></h4>
-    <p>Vencimiento: <%= current_user.user_plans.first.end_date %></p>
+  <% if @current_user_plan %>
+    <h4>Ya tiene activo el plan: <%= @current_user_plan.type_plan.name %></h4>
+    <p>Vencimiento: <%= @current_user_plan.end_date %></p>
   <% else %>
     <h4>No tiene un plan activo</h4>
     <div class="row">
