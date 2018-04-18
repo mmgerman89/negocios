@@ -1,10 +1,14 @@
 class UserPlansController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
-  
+
   def show
-    user = User.find(params[:id])
+    user = User.find_by(id: params[:id])
     current_user_plan = helpers.current_plan(user)
-    render json: current_user_plan.end_date
+    if current_user_plan
+      render json: current_user_plan.end_date
+    else
+      render json: nil
+    end
   end
 
   def new
