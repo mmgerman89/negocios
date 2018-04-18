@@ -1,4 +1,10 @@
 class UserPlansController < ApplicationController
+  def show
+    user = User.find(params[:id])
+    current_user_plan = helpers.current_plan(user)
+    render json: current_user_plan.end_date
+  end
+
   def new
   end
 
